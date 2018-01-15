@@ -29,19 +29,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this, "66780a64cd33942356701f85caf06551");
-        BmobUser bmobUser = BmobUser.getCurrentUser();
-        if (bmobUser != null) {
-            // 允许用户使用应用
-            YiLog.D("bmobUser != null bmobUser = "+bmobUser.getUsername()+"  Pwd = "+bmobUser.getObjectId()+"  "+bmobUser.getSessionToken());
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            LoginActivity.this.finish();
-        } else {
-            YiLog.D("bmobUser == null");
-            setContentView(R.layout.activity_login);
-            //缓存用户对象为空时， 可打开用户注册界面…
-            initialize();
-        }
+        setContentView(R.layout.activity_login);
+        //缓存用户对象为空时， 可打开用户注册界面…
+        initialize();
     }
 
     private void initialize() {

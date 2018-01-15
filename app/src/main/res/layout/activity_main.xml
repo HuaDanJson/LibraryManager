@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/dlMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.jason.examination.activity.MainActivity">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_permission"
+    <!--抽屉外面的部分-->
+    <include layout="@layout/activity_main_drawer_layout_outer_layout"/>
+
+    <!--抽屉里面的部分-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nvMainActivity"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="#ffffff"
+        app:elevation="2dp"/>
 
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>
