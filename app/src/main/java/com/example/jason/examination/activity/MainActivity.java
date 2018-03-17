@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -17,21 +18,27 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.example.jason.examination.R;
+import com.example.jason.examination.adapter.BookListAdapter;
 import com.example.jason.examination.base.BaseActivity;
+import com.example.jason.examination.data.BookList;
 import com.example.jason.examination.utils.PermissionHelper;
 import com.example.jason.examination.utils.ToastHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ivMainActivityMenu) ImageView ivMainActivityMenu;
     @BindView(R.id.ivMainActivityCamera) ImageView ivMainActivityCamera;
     @BindView(R.id.barTitle) Toolbar barTitle;
-    @BindView(R.id.rlvMainActivity) RecyclerView rlvMainActivity;
+    @BindView(R.id.rlvMainActivity) RecyclerView mRecyclerView;
     @BindView(R.id.nvMainActivity) NavigationView nvMainActivity;
     @BindView(R.id.dlMain) DrawerLayout dlMain;
 
@@ -45,6 +52,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private View headView;
     private ImageView ivMainDrawerNotLoginUserAvatar;
     private long firstBack = -1;
+    private List<BookList> bookLists = new ArrayList<>();
+    private BookListAdapter bookListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +93,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 })
                 .request();
+
+        getBookData();
     }
 
     private void initView() {
@@ -197,4 +208,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    public void getBookData() {
+        BmobQuery<BookList> query = new BmobQuery<BookList>();
+        // 按时间降序查询
+        query.order("-createdAt");
+        query.setLimit(20);
+        query.findObjects(new FindListener<BookList>() {
+            @Override
+            public void done(List<BookList> list, BmobException e) {
+                if (e == null) {
+                    LogUtils.d("getMediaData success = " + list.toString());
+                    bookLists = list;
+                    initRecyclerView();
+                }
+            }
+        });
+    }
+
+    public void initRecyclerView() {
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        bookListAdapter = new BookListAdapter(bookLists, this);
+        mRecyclerView.setAdapter(bookListAdapter);
+    }
 }

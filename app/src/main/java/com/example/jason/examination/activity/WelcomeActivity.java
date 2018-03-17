@@ -15,7 +15,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         //第一：默认初始化
-        Bmob.initialize(this, "66780a64cd33942356701f85caf06551");
+        Bmob.initialize(this, "d147eab67be5092ca6741ad7b27dbdda");
         doInUI(new Runnable() {
             @Override
             public void run() {
