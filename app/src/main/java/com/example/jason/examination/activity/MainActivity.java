@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.constant.PermissionConstants;
@@ -41,6 +43,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.rlvMainActivity) RecyclerView mRecyclerView;
     @BindView(R.id.nvMainActivity) NavigationView nvMainActivity;
     @BindView(R.id.dlMain) DrawerLayout dlMain;
+    @BindView(R.id.edt_search_main_activity) EditText edtSearchMainActivity;
+    @BindView(R.id.tv_search_main_activity) TextView tvSearchMainActivity;
+    @BindView(R.id.rl_search_main_activity) RelativeLayout rlSearchMainActivity;
 
     private ImageView ivMainDrawerBg;
     private ImageView ivMainDrawerUserAvatar;
@@ -126,7 +131,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 openDrawer();
                 break;
             case R.id.ivMainActivityCamera:
-//                toActivity(FilterCameraActivity.class);
+                if (rlSearchMainActivity.getVisibility() == View.VISIBLE) {
+                    rlSearchMainActivity.setVisibility(View.GONE);
+                } else {
+                    rlSearchMainActivity.setVisibility(View.VISIBLE);
+                }
                 break;
             case R.id.flMainDrawerUser:
                 //进入自己的主页

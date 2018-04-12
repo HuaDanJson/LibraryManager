@@ -9,9 +9,9 @@ import cn.bmob.v3.BmobObject;
 public class BookList extends BmobObject {
 
     private String bookName;
-    private String bookIntroduce;
-    private String bookWriter;
-    private String bookValue;
+    private String BookIntroduce;
+    private String BookWriter;
+    private String BookValue;
     private String bookCover;
 
     public String getBookName() {
@@ -23,27 +23,27 @@ public class BookList extends BmobObject {
     }
 
     public String getBookIntroduce() {
-        return bookIntroduce;
+        return BookIntroduce;
     }
 
     public void setBookIntroduce(String bookIntroduce) {
-        this.bookIntroduce = bookIntroduce;
+        BookIntroduce = bookIntroduce;
     }
 
     public String getBookWriter() {
-        return bookWriter;
+        return BookWriter;
     }
 
     public void setBookWriter(String bookWriter) {
-        this.bookWriter = bookWriter;
+        BookWriter = bookWriter;
     }
 
     public String getBookValue() {
-        return bookValue;
+        return BookValue;
     }
 
     public void setBookValue(String bookValue) {
-        this.bookValue = bookValue;
+        BookValue = bookValue;
     }
 
     public String getBookCover() {
@@ -58,9 +58,9 @@ public class BookList extends BmobObject {
     public String toString() {
         return "BookList{" +
                 "bookName='" + bookName + '\'' +
-                ", bookIntroduce='" + bookIntroduce + '\'' +
-                ", bookWriter='" + bookWriter + '\'' +
-                ", bookValue='" + bookValue + '\'' +
+                ", BookIntroduce='" + BookIntroduce + '\'' +
+                ", BookWriter='" + BookWriter + '\'' +
+                ", BookValue='" + BookValue + '\'' +
                 ", bookCover='" + bookCover + '\'' +
                 '}';
     }
