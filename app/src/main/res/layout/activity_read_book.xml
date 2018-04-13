@@ -68,4 +68,13 @@
             android:entries="@array/provarray"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_share_read_book_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:text="分享"/>
+
 </RelativeLayout>

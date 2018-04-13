@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.jason.examination.R;
 import com.example.jason.examination.base.BaseActivity;
 import com.example.jason.examination.data.BookList;
+import com.example.jason.examination.share.AndroidShare;
 import com.example.jason.examination.utils.GsonUtil;
 import com.example.jason.examination.utils.ResourceUtil;
 
@@ -29,6 +30,7 @@ public class ReadBookActivity extends BaseActivity {
     @BindView(R.id.tv_title_read_book_activity) TextView mTitle;
     @BindView(R.id.tv_writer_read_book_activity) TextView mWriter;
     @BindView(R.id.spinner_kind_work) Spinner spinnerKindWork;
+    @BindView(R.id.btn_share_read_book_activity) Button btnShareReadBookActivity;
     private BookList bookList;
 
     @Override
@@ -54,6 +56,14 @@ public class ReadBookActivity extends BaseActivity {
     @OnClick(R.id.btn_chang_day_read_book_activity)
     public void changDay() {
         rvBookReader.setBackgroundColor(ResourceUtil.getColor(R.color.white));
+    }
+
+    @OnClick(R.id.btn_share_read_book_activity)
+    public void shareClicked() {
+        if (bookList != null) {
+            AndroidShare as = new AndroidShare(this, "书名为：" + bookList.getBookName() + "\n\n作者：" + bookList.getBookWriter() + "\n\n书简介：" + bookList.getBookIntroduce(), "");
+            as.show();
+        }
     }
 
     public void changTextSize() {
