@@ -1,14 +1,17 @@
 package com.example.jason.examination.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,12 +28,14 @@ import com.example.jason.examination.base.BaseActivity;
 import com.example.jason.examination.data.BookList;
 import com.example.jason.examination.utils.PermissionHelper;
 import com.example.jason.examination.utils.ToastHelper;
+import com.example.jason.examination.utils.db.DBBookListUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -58,6 +63,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView ivMainDrawerNotLoginUserAvatar;
     private long firstBack = -1;
     private List<BookList> bookLists = new ArrayList<>();
+    private List<BookList> mGetDateFromServiceBookLists = new ArrayList<>();
+    private List<BookList> mNameSearchBookLists = new ArrayList<>();
+    private List<BookList> mWriteNameSearchBookLists = new ArrayList<>();
     private BookListAdapter bookListAdapter;
 
     @Override
@@ -121,6 +129,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         headView.findViewById(R.id.llMainDrawerLogin).setOnClickListener(this);
         ivMainActivityMenu.setOnClickListener(this);
         ivMainActivityCamera.setOnClickListener(this);
+        tvSearchMainActivity.setOnClickListener(this);
 
     }
 
@@ -131,8 +140,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 openDrawer();
                 break;
             case R.id.ivMainActivityCamera:
+                //点击搜索Incon
                 if (rlSearchMainActivity.getVisibility() == View.VISIBLE) {
                     rlSearchMainActivity.setVisibility(View.GONE);
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 } else {
                     rlSearchMainActivity.setVisibility(View.VISIBLE);
                 }
@@ -170,6 +181,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 //登陆页
                 toActivity(LoginActivity.class);
                 closeDrawer();
+                break;
+
+            case R.id.tv_search_main_activity:
+                //点击搜索开始文案
+                if (TextUtils.isEmpty(edtSearchMainActivity.getText().toString())) {
+                    ToastHelper.showShortMessage("请输入用书名再点击查询");
+                } else {
+                    mNameSearchBookLists = DBBookListUtils.getInstance().queryUserDependBookName(edtSearchMainActivity.getText().toString());
+//                    mWriteNameSearchBookLists = DBBookListUtils.getInstance().queryUserDependBookWriter(edtSearchMainActivity.getText().toString());
+                    bookLists.clear();
+                    bookLists.addAll(mNameSearchBookLists);
+                    if (bookLists.size() > 0) {
+                        initRecyclerView();
+                    } else {
+                        ToastHelper.showShortMessage("未搜索到与之匹配的书");
+                    }
+//                    bookLists.addAll(mWriteNameSearchBookLists);
+
+                }
                 break;
             default:
                 break;
@@ -217,27 +247,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @OnTextChanged(R.id.edt_search_main_activity)
+    public void onSearchTextChanged() {
+        LogUtils.d("MainActivity onSearchTextChanged() 000");
+        if (TextUtils.isEmpty(edtSearchMainActivity.getText().toString())) {
+            LogUtils.d("MainActivity onSearchTextChanged() 111");
+            bookLists.clear();
+            bookLists.addAll(DBBookListUtils.getInstance().queryAllData());
+            LogUtils.d("MainActivity onSearchTextChanged() 222  bookLists= " + bookLists.size());
+            initRecyclerView();
+        }
+    }
+
+
     public void getBookData() {
         BmobQuery<BookList> query = new BmobQuery<BookList>();
         // 按时间降序查询
         query.order("-createdAt");
-        query.setLimit(20);
+        query.setLimit(50);
         query.findObjects(new FindListener<BookList>() {
             @Override
             public void done(List<BookList> list, BmobException e) {
                 if (e == null) {
                     LogUtils.d("getMediaData success = " + list.toString());
                     bookLists = list;
+                    mGetDateFromServiceBookLists = list;
                     initRecyclerView();
+                    DBBookListUtils.getInstance().deleteAll();
+                    DBBookListUtils.getInstance().insertManyData(bookLists);
                 }
             }
         });
     }
 
     public void initRecyclerView() {
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        bookListAdapter = new BookListAdapter(bookLists, this);
-        mRecyclerView.setAdapter(bookListAdapter);
+        if (bookListAdapter == null) {
+            final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+            mRecyclerView.setLayoutManager(gridLayoutManager);
+            bookListAdapter = new BookListAdapter(bookLists, this);
+            mRecyclerView.setAdapter(bookListAdapter);
+        } else {
+            mRecyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    bookListAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
     }
 }
