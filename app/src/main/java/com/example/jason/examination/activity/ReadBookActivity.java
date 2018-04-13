@@ -2,8 +2,12 @@ package com.example.jason.examination.activity;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.jason.examination.R;
@@ -24,6 +28,7 @@ public class ReadBookActivity extends BaseActivity {
     @BindView(R.id.rv_book_reader) RelativeLayout rvBookReader;
     @BindView(R.id.tv_title_read_book_activity) TextView mTitle;
     @BindView(R.id.tv_writer_read_book_activity) TextView mWriter;
+    @BindView(R.id.spinner_kind_work) Spinner spinnerKindWork;
     private BookList bookList;
 
     @Override
@@ -38,6 +43,7 @@ public class ReadBookActivity extends BaseActivity {
             mWriter.setText(bookList.getBookWriter());
             mBookValue.setText(bookList.getBookValue());
         }
+        changTextSize();
     }
 
     @OnClick(R.id.btn_chang_night_read_book_activity)
@@ -48,5 +54,22 @@ public class ReadBookActivity extends BaseActivity {
     @OnClick(R.id.btn_chang_day_read_book_activity)
     public void changDay() {
         rvBookReader.setBackgroundColor(ResourceUtil.getColor(R.color.white));
+    }
+
+    public void changTextSize() {
+        spinnerKindWork.setSelection(0);
+        spinnerKindWork.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
+                if (position > 0) {
+                    mBookValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, Float.parseFloat(adapter.getItemAtPosition(position).toString()));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
