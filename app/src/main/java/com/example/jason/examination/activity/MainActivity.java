@@ -1,6 +1,7 @@
 package com.example.jason.examination.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -176,13 +177,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.llMainDrawerNews:
                 //用户管理
-                // toActivity(MessageActivity
-                // .class);
+                toActivity(UserManagerActivity.class);
                 closeDrawer();
                 break;
             case R.id.llMainDrawerFeedback:
                 //图书管理
-//                toActivity(FeedbackActivity.class);
+                startActivityForResult(new Intent(this, BookManagerActivity.class), 10);
                 closeDrawer();
                 break;
             case R.id.llMainDrawerSetting:
@@ -231,6 +231,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogUtils.d("aaa", "requestCode =" + requestCode + "   resultCode  = " + resultCode);
+        if (requestCode == 10) {
+            LogUtils.d("aaa", "requestCode =" + requestCode + "   resultCode  = " + resultCode);
+            getBookData();
+        }
+    }
 
     private void closeDrawer() {
         doInUI(new Runnable() {

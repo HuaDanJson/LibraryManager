@@ -63,6 +63,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.FindPassWordActivity">
         </activity>
+        <activity android:name=".activity.UserManagerActivity">
+        </activity>
+        <activity android:name=".activity.BookManagerActivity">
+        </activity>
     </application>
 
 </manifest>
