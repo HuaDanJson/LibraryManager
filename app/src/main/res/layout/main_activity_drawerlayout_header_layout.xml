@@ -90,7 +90,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
                 android:paddingLeft="18dp"
-                android:paddingTop="28dp">
+                android:paddingTop="28dp"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -131,7 +132,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
                 android:paddingLeft="18dp"
-                android:paddingTop="16dp">
+                android:paddingTop="16dp"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -164,7 +166,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
                 android:paddingLeft="18dp"
-                android:paddingTop="16dp">
+                android:paddingTop="16dp"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -197,7 +200,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
                 android:paddingLeft="18dp"
-                android:paddingTop="16dp">
+                android:paddingTop="16dp"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

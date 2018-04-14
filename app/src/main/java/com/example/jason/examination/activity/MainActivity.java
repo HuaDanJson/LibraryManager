@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
@@ -139,6 +140,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btnArtMainActivity.setOnClickListener(this);
         btnTechnologyMainActivity.setOnClickListener(this);
         btnBuildingMainActivity.setOnClickListener(this);
+
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        if (bmobUser != null) {
+            tvMainDrawerNickname.setText(bmobUser.getUsername());
+        }
     }
 
     @Override
