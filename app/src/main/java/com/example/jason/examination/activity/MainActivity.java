@@ -171,7 +171,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.llMainDrawerVideo:
                 //找回密码
-//                toActivity(VideoManageActivity.class);
+                toActivity(FindPassWordActivity.class);
                 closeDrawer();
                 break;
             case R.id.llMainDrawerNews:

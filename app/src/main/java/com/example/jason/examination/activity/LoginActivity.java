@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.jason.examination.R;
 import com.example.jason.examination.base.BaseActivity;
 import com.example.jason.examination.log.YiLog;
+import com.example.jason.examination.utils.SharePreferenceUtil;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -48,7 +49,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.login:
                 final String username = etusername.getText().toString();
-                String password = etpassword.getText().toString();
+                final String password = etpassword.getText().toString();
                 if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
                     BmobUser userInfoBean = new BmobUser();
                     userInfoBean.setUsername(username);
@@ -58,6 +59,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         public void done(BmobUser userInfoBean, BmobException e) {
                             if (e == null) {
                                 BmobUser currentUser = BmobUser.getCurrentUser(BmobUser.class);
+                                SharePreferenceUtil.getInstance().putString("password", password);
                                 YiLog.D("LogIn Success  " + currentUser.toString());
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);

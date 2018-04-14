@@ -61,6 +61,8 @@
         <activity
             android:name=".activity.BookListActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FindPassWordActivity">
+        </activity>
     </application>
 
 </manifest>

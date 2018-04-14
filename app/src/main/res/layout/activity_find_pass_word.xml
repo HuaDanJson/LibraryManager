@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#8DEEEE"
+        android:gravity="center"
+        android:text="找回密码"
+        android:textColor="#fff"
+        android:textSize="20sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dp">
+        <!--android:digits="1234567890"-->
+        <EditText
+            android:id="@+id/et_username_find_pass_word_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/et"
+            android:cursorVisible="true"
+            android:gravity="center_vertical"
+            android:hint="请输入用户名"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:textCursorDrawable="@null"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/et_password_find_pass_word_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/et"
+            android:cursorVisible="true"
+            android:gravity="center_vertical"
+            android:hint="密码即将显示在这里"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_find_pass_word_activity"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_btn_submit"
+        android:gravity="center"
+        android:text="查看密码"
+        android:textColor="#fff"/>
+
+</LinearLayout>
+
+
