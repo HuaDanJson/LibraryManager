@@ -179,7 +179,7 @@ public class DBBookListUtils {
      * @return
      */
     public List<BookList> queryUserDependBookName(String bookName) {
-        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.BookName.like("%"+bookName+"%")).build().list();
+        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.BookName.like("%" + bookName + "%")).build().list();
     }
 
     /**
@@ -188,6 +188,16 @@ public class DBBookListUtils {
      * @return
      */
     public List<BookList> queryUserDependBookWriter(String bookWriter) {
-        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.BookWriter.like("%"+bookWriter+"%")).build().list();
+        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.BookWriter.like("%" + bookWriter + "%")).build().list();
+    }
+
+
+    /**
+     * 完成对数据库条件查询数据操作 classification
+     *
+     * @return
+     */
+    public List<BookList> queryUserDependlassification(String classification) {
+        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.Classification.eq(classification)).build().list();
     }
 }

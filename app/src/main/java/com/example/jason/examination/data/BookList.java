@@ -22,16 +22,19 @@ public class BookList extends BmobObject {
     private String BookWriter;
     private String BookValue;
     private String bookCover;
+    private String classification;//书的分类
 
-    @Generated(hash = 701283866)
+    @Generated(hash = 777202032)
     public BookList(Long id, String bookName, String BookIntroduce,
-            String BookWriter, String BookValue, String bookCover) {
+            String BookWriter, String BookValue, String bookCover,
+            String classification) {
         this.id = id;
         this.bookName = bookName;
         this.BookIntroduce = BookIntroduce;
         this.BookWriter = BookWriter;
         this.BookValue = BookValue;
         this.bookCover = bookCover;
+        this.classification = classification;
     }
 
     @Generated(hash = 1714324117)
@@ -78,22 +81,32 @@ public class BookList extends BmobObject {
         this.bookCover = bookCover;
     }
 
-    @Override
-    public String toString() {
-        return "BookList{" +
-                "bookName='" + bookName + '\'' +
-                ", BookIntroduce='" + BookIntroduce + '\'' +
-                ", BookWriter='" + BookWriter + '\'' +
-                ", BookValue='" + BookValue + '\'' +
-                ", bookCover='" + bookCover + '\'' +
-                '}';
-    }
-
     public Long getId() {
         return this.id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getClassification() {
+        return this.classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
+    @Override
+    public String toString() {
+        return "BookList{" +
+                "id=" + id +
+                ", bookName='" + bookName + '\'' +
+                ", BookIntroduce='" + BookIntroduce + '\'' +
+                ", BookWriter='" + BookWriter + '\'' +
+                ", BookValue='" + BookValue + '\'' +
+                ", bookCover='" + bookCover + '\'' +
+                ", classification='" + classification + '\'' +
+                '}';
     }
 }
