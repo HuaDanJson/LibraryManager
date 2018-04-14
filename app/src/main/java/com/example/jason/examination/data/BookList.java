@@ -23,11 +23,12 @@ public class BookList extends BmobObject {
     private String BookValue;
     private String bookCover;
     private String classification;//书的分类
+    private boolean isReadBefore;//是否阅读过
 
-    @Generated(hash = 777202032)
+    @Generated(hash = 1692221099)
     public BookList(Long id, String bookName, String BookIntroduce,
             String BookWriter, String BookValue, String bookCover,
-            String classification) {
+            String classification, boolean isReadBefore) {
         this.id = id;
         this.bookName = bookName;
         this.BookIntroduce = BookIntroduce;
@@ -35,6 +36,7 @@ public class BookList extends BmobObject {
         this.BookValue = BookValue;
         this.bookCover = bookCover;
         this.classification = classification;
+        this.isReadBefore = isReadBefore;
     }
 
     @Generated(hash = 1714324117)
@@ -97,6 +99,14 @@ public class BookList extends BmobObject {
         this.classification = classification;
     }
 
+    public boolean getIsReadBefore() {
+        return this.isReadBefore;
+    }
+
+    public void setIsReadBefore(boolean isReadBefore) {
+        this.isReadBefore = isReadBefore;
+    }
+
     @Override
     public String toString() {
         return "BookList{" +
@@ -107,6 +117,7 @@ public class BookList extends BmobObject {
                 ", BookValue='" + BookValue + '\'' +
                 ", bookCover='" + bookCover + '\'' +
                 ", classification='" + classification + '\'' +
+                ", isReadBefore=" + isReadBefore +
                 '}';
     }
 }

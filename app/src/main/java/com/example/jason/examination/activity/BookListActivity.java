@@ -52,8 +52,17 @@ public class BookListActivity extends BaseActivity {
         ButterKnife.bind(this);
         title = getIntent().getStringExtra("intentToBookListActivity");
         tvTitleBookListActivity.setText(title);
-        bookLists = DBBookListUtils.getInstance().queryUserDependlassification(title);
-        initRecyclerView();
+        if ("已阅读的书籍".equals(title)) {
+            bookLists = DBBookListUtils.getInstance().queryUserDependIsRead(true);
+        } else {
+            bookLists = DBBookListUtils.getInstance().queryUserDependlassification(title);
+        }
+        if (bookLists.size()==0){
+            ToastHelper.showShortMessage("此分类未有任何书籍");
+        }else {
+            initRecyclerView();
+        }
+
     }
 
 

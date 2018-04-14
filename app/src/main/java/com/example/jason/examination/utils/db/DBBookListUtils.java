@@ -200,4 +200,13 @@ public class DBBookListUtils {
     public List<BookList> queryUserDependlassification(String classification) {
         return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.Classification.eq(classification)).build().list();
     }
+
+    /**
+     * 完成对数据库条件查询数据操作 isRead
+     *
+     * @return
+     */
+    public List<BookList> queryUserDependIsRead(boolean isRead) {
+        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.IsReadBefore.eq(isRead)).build().list();
+    }
 }

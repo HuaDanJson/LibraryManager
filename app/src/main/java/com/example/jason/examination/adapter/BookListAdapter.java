@@ -15,7 +15,9 @@ import com.example.jason.examination.R;
 import com.example.jason.examination.activity.ReadBookActivity;
 import com.example.jason.examination.data.BookList;
 import com.example.jason.examination.utils.GsonUtil;
+import com.example.jason.examination.utils.db.DBBookListUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,6 +31,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
 
     private List<BookList> bookLists;
     private Activity mActivity;
+    private List<BookList> isReadList = new ArrayList<>();
 
     public BookListAdapter(List<BookList> mData, Activity mActivity) {
         this.bookLists = mData;
@@ -53,8 +56,22 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
                 Intent intent = new Intent(mActivity, ReadBookActivity.class);
                 intent.putExtra("intentToReadBook", GsonUtil.toJson(bookLists.get(position)));
                 mActivity.startActivity(intent);
+                if (!(bookLists.get(position).getIsReadBefore())) {
+                    bookLists.get(position).setIsReadBefore(true);
+                    DBBookListUtils.getInstance().updateData(bookLists.get(position));
+                }
             }
         });
+    }
+
+    public boolean isContent(BookList bookList) {
+        isReadList = DBBookListUtils.getInstance().queryUserDependIsRead(true);
+        for (BookList bookListIsReaddb : isReadList) {
+            if ((bookList.getId().equals(bookListIsReaddb.getId()))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

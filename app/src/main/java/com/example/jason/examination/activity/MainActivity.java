@@ -53,6 +53,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.btn_art_main_activity) Button btnArtMainActivity;
     @BindView(R.id.btn_technology_main_activity) Button btnTechnologyMainActivity;
     @BindView(R.id.btn_building_main_activity) Button btnBuildingMainActivity;
+    @BindView(R.id.btn_english_cet_main_activity) Button btnEnglishCetMainActivity;
+    @BindView(R.id.btn_collection_main_activity) Button btnCollectionMainActivity;
 
     private ImageView ivMainDrawerBg;
     private ImageView ivMainDrawerUserAvatar;
@@ -127,7 +129,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ivMainActivityMenu.setOnClickListener(this);
         ivMainActivityCamera.setOnClickListener(this);
         tvSearchMainActivity.setOnClickListener(this);
-
+        btnEnglishCetMainActivity.setOnClickListener(this);
+        btnCollectionMainActivity.setOnClickListener(this);
         btnStoryMainActivity.setOnClickListener(this);
         btnHistoryMainActivity.setOnClickListener(this);
         btnPhilosophyMainActivity.setOnClickListener(this);
@@ -145,13 +148,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 openDrawer();
                 break;
             case R.id.ivMainActivityCamera:
-//                //点击搜索Incon
-//                if (rlSearchMainActivity.getVisibility() == View.VISIBLE) {
-//                    rlSearchMainActivity.setVisibility(View.GONE);
-//                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-//                } else {
-//                    rlSearchMainActivity.setVisibility(View.VISIBLE);
-//                }
                 break;
             case R.id.flMainDrawerUser:
                 //进入自己的主页
@@ -221,23 +217,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intentToBookList("建筑");
                 break;
 
-            case R.id.tv_search_main_activity:
-//                //点击搜索开始文案
-//                if (TextUtils.isEmpty(edtSearchMainActivity.getText().toString())) {
-//                    ToastHelper.showShortMessage("请输入用书名再点击查询");
-//                } else {
-//                    mNameSearchBookLists = DBBookListUtils.getInstance().queryUserDependBookName(edtSearchMainActivity.getText().toString());
-////                    mWriteNameSearchBookLists = DBBookListUtils.getInstance().queryUserDependBookWriter(edtSearchMainActivity.getText().toString());
-//                    bookLists.clear();
-//                    bookLists.addAll(mNameSearchBookLists);
-//                    if (bookLists.size() > 0) {
-////                        initRecyclerView();
-//                    } else {
-//                        ToastHelper.showShortMessage("未搜索到与之匹配的书");
-//                    }
-////                    bookLists.addAll(mWriteNameSearchBookLists);
+            case R.id.btn_english_cet_main_activity:
+                //英语四六级
+                intentToBookList("英语四六级");
+                break;
 
-//                }
+            case R.id.btn_collection_main_activity:
+                //已阅读的书籍
+                intentToBookList("已阅读的书籍");
                 break;
             default:
                 break;
@@ -290,19 +277,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-//    @OnTextChanged(R.id.edt_search_main_activity)
-//    public void onSearchTextChanged() {
-//        LogUtils.d("MainActivity onSearchTextChanged() 000");
-//        if (TextUtils.isEmpty(edtSearchMainActivity.getText().toString())) {
-//            LogUtils.d("MainActivity onSearchTextChanged() 111");
-//            bookLists.clear();
-//            bookLists.addAll(DBBookListUtils.getInstance().queryAllData());
-//            LogUtils.d("MainActivity onSearchTextChanged() 222  bookLists= " + bookLists.size());
-////            initRecyclerView();
-//        }
-//    }
-
-
     public void getBookData() {
         BmobQuery<BookList> query = new BmobQuery<BookList>();
         // 按时间降序查询
@@ -311,13 +285,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         query.findObjects(new FindListener<BookList>() {
             @Override
             public void done(List<BookList> list, BmobException e) {
+                boolean isContent = false;
                 if (e == null) {
-                    LogUtils.d("getMediaData success = " + list.toString());
-                    DBBookListUtils.getInstance().deleteAll();
-                    DBBookListUtils.getInstance().insertManyData(list);
+                    LogUtils.d("getMediaData success = " + list.size());
+                    List<BookList> bookListListDB = DBBookListUtils.getInstance().queryAllData();
+
+                    if (bookListListDB.size() == 0) {
+                        DBBookListUtils.getInstance().insertManyData(list);
+                    } else {
+                        for (BookList bookList : list) {
+                            if (!isContent(bookList, bookListListDB)) {
+                                DBBookListUtils.getInstance().insertOneData(bookList);
+                            }
+                        }
+                    }
+                    LogUtils.d("getBookData  DB =  " + DBBookListUtils.getInstance().queryAllData().size());
                 }
             }
         });
     }
 
+    public boolean isContent(BookList bookList, List<BookList> bookListListDB) {
+        for (BookList bookListdb : bookListListDB) {
+            if ((bookList.getId().equals(bookListdb.getId()))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
