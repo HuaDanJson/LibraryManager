@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_writer_read_book_activity"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="60dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:scrollbars="vertical"
@@ -76,5 +76,15 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
         android:text="分享"/>
+
+    <Button
+        android:id="@+id/btn_chang_bg_color_read_book_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:text="更换背景颜色"/>
 
 </RelativeLayout>

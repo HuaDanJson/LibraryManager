@@ -31,7 +31,9 @@ public class ReadBookActivity extends BaseActivity {
     @BindView(R.id.tv_writer_read_book_activity) TextView mWriter;
     @BindView(R.id.spinner_kind_work) Spinner spinnerKindWork;
     @BindView(R.id.btn_share_read_book_activity) Button btnShareReadBookActivity;
+    @BindView(R.id.btn_chang_bg_color_read_book_activity) Button btnChangBgColorReadBookActivity;
     private BookList bookList;
+    private int changBGClickCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,26 @@ public class ReadBookActivity extends BaseActivity {
         if (bookList != null) {
             AndroidShare as = new AndroidShare(this, "书名为：" + bookList.getBookName() + "\n\n作者：" + bookList.getBookWriter() + "\n\n书简介：" + bookList.getBookIntroduce(), "");
             as.show();
+        }
+    }
+
+    @OnClick(R.id.btn_chang_bg_color_read_book_activity)
+    public void changBGColorClicked() {
+        if (changBGClickCount == 0) {
+            rvBookReader.setBackgroundColor(ResourceUtil.getColor(R.color.video_manage_activity_select_all_text_color));
+            changBGClickCount++;
+        } else if (changBGClickCount == 1) {
+            rvBookReader.setBackgroundColor(ResourceUtil.getColor(R.color.green3));
+            changBGClickCount++;
+        } else if (changBGClickCount == 2) {
+            rvBookReader.setBackgroundColor(ResourceUtil.getColor(R.color.attention_others_activity_log_in_text_color));
+            changBGClickCount++;
+        } else if (changBGClickCount == 3) {
+            rvBookReader.setBackground(ResourceUtil.getDrawable(R.drawable.welecome_bg));
+            changBGClickCount ++;
+        } else if (changBGClickCount == 4) {
+            rvBookReader.setBackgroundColor(ResourceUtil.getColor(R.color.white));
+            changBGClickCount = 0;
         }
     }
 
