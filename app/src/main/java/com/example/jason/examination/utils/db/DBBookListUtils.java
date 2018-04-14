@@ -2,9 +2,9 @@ package com.example.jason.examination.utils.db;
 
 import android.content.Context;
 
-import com.aidebar.greendaotest.gen.BookListDao;
+import com.aidebar.greendaotest.gen.BookDao;
 import com.aidebar.greendaotest.gen.DaoManager;
-import com.example.jason.examination.data.BookList;
+import com.example.jason.examination.data.Book;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class DBBookListUtils {
 
-    private BookListDao dbCurrentUserDao;
+    private BookDao dbCurrentUserDao;
     private static DBBookListUtils dbCurrentUserUtils = null;
 
     public DBBookListUtils(Context context) {
-        dbCurrentUserDao = DaoManager.getInstance(context).getNewSession().getBookListDao();
+        dbCurrentUserDao = DaoManager.getInstance(context).getNewSession().getBookDao();
     }
 
     public static DBBookListUtils getInstance() {
@@ -37,7 +37,7 @@ public class DBBookListUtils {
      * @param
      * @return
      */
-    public void insertOneData(BookList dbUserInvestment) {
+    public void insertOneData(Book dbUserInvestment) {
         dbCurrentUserDao.insertOrReplace(dbUserInvestment);
     }
 
@@ -47,7 +47,7 @@ public class DBBookListUtils {
      * @param dbUserInvestmentList
      * @return
      */
-    public boolean insertManyData(List<BookList> dbUserInvestmentList) {
+    public boolean insertManyData(List<Book> dbUserInvestmentList) {
         boolean flag = false;
         try {
             dbCurrentUserDao.insertOrReplaceInTx(dbUserInvestmentList);
@@ -64,7 +64,7 @@ public class DBBookListUtils {
      * @param dbUserInvestment
      * @return
      */
-    public boolean deleteOneData(BookList dbUserInvestment) {
+    public boolean deleteOneData(Book dbUserInvestment) {
         boolean flag = false;
         try {
             dbCurrentUserDao.delete(dbUserInvestment);
@@ -96,7 +96,7 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public boolean deleteManData(List<BookList> dbUserInvestmentList) {
+    public boolean deleteManData(List<Book> dbUserInvestmentList) {
         boolean flag = false;
         try {
             dbCurrentUserDao.deleteInTx(dbUserInvestmentList);
@@ -128,7 +128,7 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public boolean updateData(BookList dbUserInvestment) {
+    public boolean updateData(Book dbUserInvestment) {
         boolean flag = false;
         try {
             dbCurrentUserDao.update(dbUserInvestment);
@@ -144,7 +144,7 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public boolean updateManData(List<BookList> dbUserInvestmentList) {
+    public boolean updateManData(List<Book> dbUserInvestmentList) {
         boolean flag = false;
         try {
             dbCurrentUserDao.updateInTx(dbUserInvestmentList);
@@ -160,7 +160,7 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public BookList queryOneData(long id) {
+    public Book queryOneData(long id) {
         return dbCurrentUserDao.load(id);
     }
 
@@ -169,7 +169,7 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public List<BookList> queryAllData() {
+    public List<Book> queryAllData() {
         return dbCurrentUserDao.loadAll();
     }
 
@@ -178,8 +178,8 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public List<BookList> queryUserDependBookName(String bookName) {
-        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.BookName.like("%" + bookName + "%")).build().list();
+    public List<Book> queryUserDependBookName(String bookName) {
+        return dbCurrentUserDao.queryBuilder().where(BookDao.Properties.BookName.like("%" + bookName + "%")).build().list();
     }
 
     /**
@@ -187,8 +187,8 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public List<BookList> queryUserDependBookWriter(String bookWriter) {
-        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.BookWriter.like("%" + bookWriter + "%")).build().list();
+    public List<Book> queryUserDependBookWriter(String bookWriter) {
+        return dbCurrentUserDao.queryBuilder().where(BookDao.Properties.BookWriter.like("%" + bookWriter + "%")).build().list();
     }
 
 
@@ -197,8 +197,8 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public List<BookList> queryUserDependlassification(String classification) {
-        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.Classification.eq(classification)).build().list();
+    public List<Book> queryUserDependlassification(String classification) {
+        return dbCurrentUserDao.queryBuilder().where(BookDao.Properties.Classification.eq(classification)).build().list();
     }
 
     /**
@@ -206,7 +206,7 @@ public class DBBookListUtils {
      *
      * @return
      */
-    public List<BookList> queryUserDependIsRead(boolean isRead) {
-        return dbCurrentUserDao.queryBuilder().where(BookListDao.Properties.IsReadBefore.eq(isRead)).build().list();
+    public List<Book> queryUserDependIsRead(boolean isRead) {
+        return dbCurrentUserDao.queryBuilder().where(BookDao.Properties.IsReadBefore.eq(isRead)).build().list();
     }
 }

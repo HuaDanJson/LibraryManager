@@ -59,6 +59,31 @@
     </RelativeLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="选择身份 : "
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spinner_kind_work"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:entries="@array/provarray2"/>
+
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/sign2"
         android:layout_width="match_parent"

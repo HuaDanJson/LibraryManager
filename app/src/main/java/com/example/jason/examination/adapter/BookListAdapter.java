@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.example.jason.examination.R;
 import com.example.jason.examination.activity.ReadBookActivity;
-import com.example.jason.examination.data.BookList;
+import com.example.jason.examination.data.Book;
 import com.example.jason.examination.utils.GsonUtil;
 import com.example.jason.examination.utils.db.DBBookListUtils;
 
@@ -29,12 +29,12 @@ import butterknife.ButterKnife;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookListAdapterViewHolder> {
 
-    private List<BookList> bookLists;
+    private List<Book> books;
     private Activity mActivity;
-    private List<BookList> isReadList = new ArrayList<>();
+    private List<Book> isReadList = new ArrayList<>();
 
-    public BookListAdapter(List<BookList> mData, Activity mActivity) {
-        this.bookLists = mData;
+    public BookListAdapter(List<Book> mData, Activity mActivity) {
+        this.books = mData;
         this.mActivity = mActivity;
     }
 
@@ -46,28 +46,28 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
 
     @Override
     public void onBindViewHolder(BookListAdapterViewHolder holder, final int position) {
-        Glide.with(mActivity).load(bookLists.get(position).getBookCover()).placeholder(R.drawable.first_book_cover).centerCrop().into(holder.mBookCovertImage);
-        holder.mTitle.setText(bookLists.get(position).getBookName());
-        holder.mWriter.setText(bookLists.get(position).getBookWriter());
+        Glide.with(mActivity).load(books.get(position).getBookCover()).placeholder(R.drawable.first_book_cover).centerCrop().into(holder.mBookCovertImage);
+        holder.mTitle.setText(books.get(position).getBookName());
+        holder.mWriter.setText(books.get(position).getBookWriter());
         holder.mBookCovertImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.d("bookList   bookLists.get(position) = " + bookLists.get(position));
+                LogUtils.d("bookList   books.get(position) = " + books.get(position));
                 Intent intent = new Intent(mActivity, ReadBookActivity.class);
-                intent.putExtra("intentToReadBook", GsonUtil.toJson(bookLists.get(position)));
+                intent.putExtra("intentToReadBook", GsonUtil.toJson(books.get(position)));
                 mActivity.startActivity(intent);
-                if (!(bookLists.get(position).getIsReadBefore())) {
-                    bookLists.get(position).setIsReadBefore(true);
-                    DBBookListUtils.getInstance().updateData(bookLists.get(position));
-                }
+//                if (!(books.get(position).getIsReadBefore())) {
+//                    books.get(position).setIsReadBefore(true);
+//                    DBBookListUtils.getInstance().updateData(books.get(position));
+//                }
             }
         });
     }
 
-    public boolean isContent(BookList bookList) {
+    public boolean isContent(Book book) {
         isReadList = DBBookListUtils.getInstance().queryUserDependIsRead(true);
-        for (BookList bookListIsReaddb : isReadList) {
-            if ((bookList.getId().equals(bookListIsReaddb.getId()))) {
+        for (Book bookIsReaddb : isReadList) {
+            if ((book.getId().equals(bookIsReaddb.getId()))) {
                 return true;
             }
         }
@@ -76,7 +76,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
 
     @Override
     public int getItemCount() {
-        return bookLists.size();
+        return books.size();
     }
 
     public static class BookListAdapterViewHolder extends RecyclerView.ViewHolder {

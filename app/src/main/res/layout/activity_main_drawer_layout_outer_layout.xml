@@ -38,8 +38,7 @@
                 android:id="@+id/ivMainActivityCamera"
                 style="@style/TouchEventStyle"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/icon_search"
-                android:visibility="gone"/>
+                android:src="@drawable/icon_search"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -63,6 +62,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/search_bg"
             android:cursorVisible="true"
+            android:textCursorDrawable="@null"
             android:gravity="center"
             android:hint="请输入书名"
             android:paddingBottom="10dp"
@@ -70,7 +70,6 @@
             android:singleLine="true"
             android:textColor="@color/yellow87"
             android:textColorHint="@color/yellow87"
-            android:textCursorDrawable="@null"
             android:textSize="14sp"/>
 
         <TextView
@@ -88,180 +87,12 @@
             android:textSize="14sp"/>
     </RelativeLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlvMainActivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_story_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="小说"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-        <Button
-            android:id="@+id/btn_history_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="历史"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_philosophy_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="哲学"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-        <Button
-            android:id="@+id/btn_politics_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="政治"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_finance_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="财经"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-        <Button
-            android:id="@+id/btn_art_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="美术"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_technology_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="技术"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-        <Button
-            android:id="@+id/btn_building_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="建筑"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_english_cet_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="英语四六级"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-        <Button
-            android:id="@+id/btn_collection_main_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/login_btn_register_false"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="阅读过的书"
-            android:textColor="#ffff00"
-            android:textSize="19sp"/>
-
-    </LinearLayout>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
 

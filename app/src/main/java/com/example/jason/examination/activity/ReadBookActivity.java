@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.jason.examination.R;
 import com.example.jason.examination.base.BaseActivity;
-import com.example.jason.examination.data.BookList;
+import com.example.jason.examination.data.Book;
 import com.example.jason.examination.share.AndroidShare;
 import com.example.jason.examination.utils.GsonUtil;
 import com.example.jason.examination.utils.ResourceUtil;
@@ -32,7 +32,7 @@ public class ReadBookActivity extends BaseActivity {
     @BindView(R.id.spinner_kind_work) Spinner spinnerKindWork;
     @BindView(R.id.btn_share_read_book_activity) Button btnShareReadBookActivity;
     @BindView(R.id.btn_chang_bg_color_read_book_activity) Button btnChangBgColorReadBookActivity;
-    private BookList bookList;
+    private Book book;
     private int changBGClickCount;
 
     @Override
@@ -41,11 +41,11 @@ public class ReadBookActivity extends BaseActivity {
         setContentView(R.layout.activity_read_book);
         ButterKnife.bind(this);
         mBookValue.setMovementMethod(ScrollingMovementMethod.getInstance());
-        bookList = GsonUtil.fromJson(getIntent().getStringExtra("intentToReadBook"), BookList.class);
-        if (bookList != null) {
-            mTitle.setText(bookList.getBookName());
-            mWriter.setText(bookList.getBookWriter());
-            mBookValue.setText(bookList.getBookValue());
+        book = GsonUtil.fromJson(getIntent().getStringExtra("intentToReadBook"), Book.class);
+        if (book != null) {
+            mTitle.setText(book.getBookName());
+            mWriter.setText(book.getBookWriter());
+            mBookValue.setText(book.getBookValue());
         }
         changTextSize();
     }
@@ -62,8 +62,8 @@ public class ReadBookActivity extends BaseActivity {
 
     @OnClick(R.id.btn_share_read_book_activity)
     public void shareClicked() {
-        if (bookList != null) {
-            AndroidShare as = new AndroidShare(this, "书名为：" + bookList.getBookName() + "\n\n作者：" + bookList.getBookWriter() + "\n\n书简介：" + bookList.getBookIntroduce(), "");
+        if (book != null) {
+            AndroidShare as = new AndroidShare(this, "书名为：" + book.getBookName() + "\n\n作者：" + book.getBookWriter() + "\n\n书简介：" + book.getBookIntroduce(), "");
             as.show();
         }
     }

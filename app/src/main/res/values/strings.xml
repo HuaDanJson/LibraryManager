@@ -35,4 +35,10 @@
         <item>30</item>
     </string-array>
 
+
+    <string-array name="provarray2">
+        <item>管理员</item>
+        <item>学生</item>
+    </string-array>
+
 </resources>

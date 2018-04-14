@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.jason.examination.R;
 import com.example.jason.examination.adapter.BookListAdapter;
 import com.example.jason.examination.base.BaseActivity;
-import com.example.jason.examination.data.BookList;
+import com.example.jason.examination.data.Book;
 import com.example.jason.examination.utils.ToastHelper;
 import com.example.jason.examination.utils.db.DBBookListUtils;
 
@@ -38,10 +38,10 @@ public class BookListActivity extends BaseActivity {
     @BindView(R.id.tv_search_book_list_activity) TextView tvSearchBookListActivity;
     @BindView(R.id.rl_search_book_list_activity) RelativeLayout rlSearchBookListActivity;
 
-    private List<BookList> bookLists = new ArrayList<>();
-    private List<BookList> mGetDateFromServiceBookLists = new ArrayList<>();
-    private List<BookList> mNameSearchBookLists = new ArrayList<>();
-    private List<BookList> mWriteNameSearchBookLists = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
+    private List<Book> mGetDateFromServiceBooks = new ArrayList<>();
+    private List<Book> mNameSearchBooks = new ArrayList<>();
+    private List<Book> mWriteNameSearchBooks = new ArrayList<>();
     private String title;
     private BookListAdapter bookListAdapter;
 
@@ -53,11 +53,11 @@ public class BookListActivity extends BaseActivity {
         title = getIntent().getStringExtra("intentToBookListActivity");
         tvTitleBookListActivity.setText(title);
         if ("已阅读的书籍".equals(title)) {
-            bookLists = DBBookListUtils.getInstance().queryUserDependIsRead(true);
+            books = DBBookListUtils.getInstance().queryUserDependIsRead(true);
         } else {
-            bookLists = DBBookListUtils.getInstance().queryUserDependlassification(title);
+            books = DBBookListUtils.getInstance().queryUserDependlassification(title);
         }
-        if (bookLists.size()==0){
+        if (books.size()==0){
             ToastHelper.showShortMessage("此分类未有任何书籍");
         }else {
             initRecyclerView();
@@ -83,10 +83,10 @@ public class BookListActivity extends BaseActivity {
         if (TextUtils.isEmpty(edtSearchBookListActivity.getText().toString())) {
             ToastHelper.showShortMessage("请输入用书名再点击查询");
         } else {
-            mNameSearchBookLists = DBBookListUtils.getInstance().queryUserDependBookName(edtSearchBookListActivity.getText().toString());
-            bookLists.clear();
-            bookLists.addAll(mNameSearchBookLists);
-            if (bookLists.size() > 0) {
+            mNameSearchBooks = DBBookListUtils.getInstance().queryUserDependBookName(edtSearchBookListActivity.getText().toString());
+            books.clear();
+            books.addAll(mNameSearchBooks);
+            if (books.size() > 0) {
                 initRecyclerView();
             } else {
                 ToastHelper.showShortMessage("未搜索到与之匹配的书");
@@ -97,8 +97,8 @@ public class BookListActivity extends BaseActivity {
     @OnTextChanged(R.id.edt_search_book_list_activity)
     public void onSearchTextChanged() {
         if (TextUtils.isEmpty(edtSearchBookListActivity.getText().toString())) {
-            bookLists.clear();
-            bookLists.addAll(DBBookListUtils.getInstance().queryUserDependlassification(title));
+            books.clear();
+            books.addAll(DBBookListUtils.getInstance().queryUserDependlassification(title));
             initRecyclerView();
         }
     }
@@ -107,7 +107,7 @@ public class BookListActivity extends BaseActivity {
         if (bookListAdapter == null) {
             final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
             mRecyclerView.setLayoutManager(gridLayoutManager);
-            bookListAdapter = new BookListAdapter(bookLists, this);
+            bookListAdapter = new BookListAdapter(books, this);
             mRecyclerView.setAdapter(bookListAdapter);
         } else {
             mRecyclerView.post(new Runnable() {
