@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="56dp"
                         android:layout_marginTop="3dp"
-                        android:text="@string/video_manage"/>
+                        android:text="找回密码"/>
 
                     <TextView
                         android:id="@+id/tvMainDrawerNotUploadVideoCount"
@@ -149,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="56dp"
                         android:layout_marginTop="3dp"
-                        android:text="@string/notification"/>
+                        android:text="用户管理"/>
 
                 </RelativeLayout>
             </LinearLayout>
@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="56dp"
                         android:layout_marginTop="3dp"
-                        android:text="@string/feedback_activity_title"/>
+                        android:text="图书管理"/>
 
                 </RelativeLayout>
             </LinearLayout>
@@ -197,7 +197,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
                 android:paddingLeft="18dp"
-                android:paddingTop="16dp">
+                android:paddingTop="16dp"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.jason.examination.R;
 import com.example.jason.examination.base.BaseActivity;
+import com.example.jason.examination.data.CurrentUser;
 import com.example.jason.examination.log.YiLog;
 
 import butterknife.BindView;
@@ -23,7 +24,7 @@ import cn.bmob.v3.listener.SaveListener;
 //用户注册页面
 public class RegisterActivity extends BaseActivity {
 
-    @BindView(R.id.spinner_kind_work) Spinner spinnerKindWork;
+    @BindView(R.id.spinner_kind_work_register_activity) Spinner spinnerKindWork;
     private EditText etusername;
     private EditText etpassword;
     private Button register;
@@ -69,17 +70,17 @@ public class RegisterActivity extends BaseActivity {
      */
     private void registerData() {
 
-        BmobUser userInfoBean = new BmobUser();
+        CurrentUser currentUser = new CurrentUser();
 
         final String name = etusername.getText().toString();
         final String password = etpassword.getText().toString();
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toast.makeText(RegisterActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
         } else {
-            userInfoBean.setUsername(name);
-            userInfoBean.setPassword(password);
-            userInfoBean.setEmail(typeOfWork);
-            userInfoBean.signUp(new SaveListener<BmobUser>() {
+            currentUser.setUsername(name);
+            currentUser.setPassword(password);
+            currentUser.setUserType(typeOfWork);
+            currentUser.signUp(new SaveListener<BmobUser>() {
                 @Override
                 public void done(BmobUser s, BmobException e) {
                     if (e == null) {

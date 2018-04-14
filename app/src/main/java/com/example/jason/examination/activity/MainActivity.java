@@ -1,6 +1,5 @@
 package com.example.jason.examination.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -21,11 +20,11 @@ import android.widget.TextView;
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PermissionUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.example.jason.examination.R;
 import com.example.jason.examination.adapter.BookListAdapter;
 import com.example.jason.examination.base.BaseActivity;
 import com.example.jason.examination.data.Book;
+import com.example.jason.examination.data.CurrentUser;
 import com.example.jason.examination.utils.PermissionHelper;
 import com.example.jason.examination.utils.ToastHelper;
 import com.example.jason.examination.utils.db.DBBookListUtils;
@@ -59,7 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvMainDrawerNickname;
     private TextView tvMainDrawerNotUploadVideoCount;
     private TextView tvMainDrawerAttention;
-    private LinearLayout llMainDrawerVideo;
+    private LinearLayout llMainDrawerVideo, llMainDrawerNews, llMainDrawerFeedback;
     private View headView;
     private ImageView ivMainDrawerNotLoginUserAvatar;
     private long firstBack = -1;
@@ -68,6 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private List<Book> mNameSearchBookLists = new ArrayList<>();
     private List<Book> mWriteNameSearchBookLists = new ArrayList<>();
     private BookListAdapter bookListAdapter;
+    private CurrentUser mCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,15 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         }
                         LogUtils.d(permissionsDeniedForever, permissionsDenied);
                     }
-                })
-                .theme(new PermissionUtils.ThemeCallback() {
-                    @Override
-                    public void onActivityCreate(Activity activity) {
-                        ScreenUtils.setFullScreen(activity);// 设置全屏
-                        LogUtils.d("onActivityCreate");
-                    }
-                })
-                .request();
+                }).request();
 
         getBookData();
     }
@@ -120,6 +112,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvMainDrawerNotUploadVideoCount = (TextView) headView.findViewById(R.id.tvMainDrawerNotUploadVideoCount);
         tvMainDrawerAttention = (TextView) headView.findViewById(R.id.tvMainDrawerAttention);
         llMainDrawerVideo = (LinearLayout) headView.findViewById(R.id.llMainDrawerVideo);
+        llMainDrawerNews = (LinearLayout) headView.findViewById(R.id.llMainDrawerNews);
+        llMainDrawerNews = (LinearLayout) headView.findViewById(R.id.llMainDrawerNews);
+        llMainDrawerFeedback = (LinearLayout) headView.findViewById(R.id.llMainDrawerFeedback);
+
 
         headView.findViewById(R.id.flMainDrawerUser).setOnClickListener(this);
         llMainDrawerVideo.setOnClickListener(this);
@@ -131,9 +127,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ivMainActivityMenu.setOnClickListener(this);
         ivMainActivityCamera.setOnClickListener(this);
         tvSearchMainActivity.setOnClickListener(this);
-        BmobUser bmobUser = BmobUser.getCurrentUser();
-        if (bmobUser != null) {
-            tvMainDrawerNickname.setText(bmobUser.getUsername());
+
+        mCurrentUser = BmobUser.getCurrentUser(CurrentUser.class);
+
+        if (mCurrentUser != null) {
+            tvMainDrawerNickname.setText(mCurrentUser.getUsername());
+            LogUtils.d("MainActivity bmobUser = " + mCurrentUser.toString());
+            LogUtils.d("MainActivity bmobUser = " + mCurrentUser.getSessionToken());
+            if (mCurrentUser.getUserType().equals("管理员")) {
+                llMainDrawerVideo.setVisibility(View.GONE);
+                llMainDrawerNews.setVisibility(View.VISIBLE);
+                llMainDrawerFeedback.setVisibility(View.VISIBLE);
+            } else if (mCurrentUser.getUserType().equals("学生")) {
+                llMainDrawerVideo.setVisibility(View.VISIBLE);
+                llMainDrawerNews.setVisibility(View.GONE);
+                llMainDrawerFeedback.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -161,18 +170,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 closeDrawer();
                 break;
             case R.id.llMainDrawerVideo:
-                //视频管理页
+                //找回密码
 //                toActivity(VideoManageActivity.class);
                 closeDrawer();
                 break;
             case R.id.llMainDrawerNews:
-                //消息通知页
+                //用户管理
                 // toActivity(MessageActivity
                 // .class);
                 closeDrawer();
                 break;
             case R.id.llMainDrawerFeedback:
-                //系统反馈
+                //图书管理
 //                toActivity(FeedbackActivity.class);
                 closeDrawer();
                 break;

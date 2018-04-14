@@ -74,7 +74,7 @@
             android:textStyle="bold"/>
 
         <Spinner
-            android:id="@+id/spinner_kind_work"
+            android:id="@+id/spinner_kind_work_register_activity"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
