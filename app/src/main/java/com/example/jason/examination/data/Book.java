@@ -25,11 +25,14 @@ public class Book extends BmobObject {
     private String bookCover;
     private String classification;//书的分类
     private boolean isReadBefore;//是否阅读过
+    private String BorrowerName;
+    private int remainderBooks;
 
-    @Generated(hash = 1290088178)
+    @Generated(hash = 1410607146)
     public Book(Long id, String bookName, String bookPress, String bookIntroduce,
-                String bookWriter, String bookValue, String bookPublishingTime,
-                String bookCover, String classification, boolean isReadBefore) {
+            String bookWriter, String bookValue, String bookPublishingTime,
+            String bookCover, String classification, boolean isReadBefore,
+            String BorrowerName, int remainderBooks) {
         this.id = id;
         this.bookName = bookName;
         this.bookPress = bookPress;
@@ -40,6 +43,8 @@ public class Book extends BmobObject {
         this.bookCover = bookCover;
         this.classification = classification;
         this.isReadBefore = isReadBefore;
+        this.BorrowerName = BorrowerName;
+        this.remainderBooks = remainderBooks;
     }
 
     @Generated(hash = 1839243756)
@@ -126,6 +131,22 @@ public class Book extends BmobObject {
         this.isReadBefore = isReadBefore;
     }
 
+    public String getBorrowerName() {
+        return this.BorrowerName;
+    }
+
+    public void setBorrowerName(String BorrowerName) {
+        this.BorrowerName = BorrowerName;
+    }
+
+    public int getRemainderBooks() {
+        return this.remainderBooks;
+    }
+
+    public void setRemainderBooks(int remainderBooks) {
+        this.remainderBooks = remainderBooks;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -139,6 +160,8 @@ public class Book extends BmobObject {
                 ", bookCover='" + bookCover + '\'' +
                 ", classification='" + classification + '\'' +
                 ", isReadBefore=" + isReadBefore +
+                ", BorrowerName='" + BorrowerName + '\'' +
+                ", remainderBooks=" + remainderBooks +
                 '}';
     }
 }

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.example.jason.examination.R;
-import com.example.jason.examination.activity.ReadBookActivity;
+import com.example.jason.examination.activity.BooksActivity;
 import com.example.jason.examination.data.Book;
 import com.example.jason.examination.utils.GsonUtil;
 import com.example.jason.examination.utils.db.DBBookListUtils;
@@ -53,7 +53,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
             @Override
             public void onClick(View v) {
                 LogUtils.d("bookList   books.get(position) = " + books.get(position));
-                Intent intent = new Intent(mActivity, ReadBookActivity.class);
+                Intent intent = new Intent(mActivity, BooksActivity.class);
                 intent.putExtra("intentToReadBook", GsonUtil.toJson(books.get(position)));
                 mActivity.startActivity(intent);
 //                if (!(books.get(position).getIsReadBefore())) {
