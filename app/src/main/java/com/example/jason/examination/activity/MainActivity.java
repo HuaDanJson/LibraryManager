@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvMainDrawerNickname;
     private TextView tvMainDrawerNotUploadVideoCount;
     private TextView tvMainDrawerAttention;
-    private LinearLayout llMainDrawerVideo, llMainDrawerNews, llMainDrawerFeedback;
+    private LinearLayout llMainDrawerVideo, llMainDrawerNews, llMainDrawerFeedback, llAddBook;
     private View headView;
     private ImageView ivMainDrawerNotLoginUserAvatar;
     private long firstBack = -1;
@@ -116,18 +116,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         llMainDrawerNews = (LinearLayout) headView.findViewById(R.id.llMainDrawerNews);
         llMainDrawerNews = (LinearLayout) headView.findViewById(R.id.llMainDrawerNews);
         llMainDrawerFeedback = (LinearLayout) headView.findViewById(R.id.llMainDrawerFeedback);
-
+        llAddBook = headView.findViewById(R.id.llMainDrawerSetting);
 
         headView.findViewById(R.id.flMainDrawerUser).setOnClickListener(this);
         llMainDrawerVideo.setOnClickListener(this);
         headView.findViewById(R.id.llMainDrawerNews).setOnClickListener(this);
         headView.findViewById(R.id.llMainDrawerFeedback).setOnClickListener(this);
-        headView.findViewById(R.id.llMainDrawerSetting).setOnClickListener(this);
         headView.findViewById(R.id.ivMainDrawerUserAvatar).setOnClickListener(this);
         headView.findViewById(R.id.llMainDrawerLogin).setOnClickListener(this);
         ivMainActivityMenu.setOnClickListener(this);
         ivMainActivityCamera.setOnClickListener(this);
         tvSearchMainActivity.setOnClickListener(this);
+        llAddBook.setOnClickListener(this);
 
         mCurrentUser = BmobUser.getCurrentUser(CurrentUser.class);
 
@@ -139,10 +139,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 llMainDrawerVideo.setVisibility(View.GONE);
                 llMainDrawerNews.setVisibility(View.VISIBLE);
                 llMainDrawerFeedback.setVisibility(View.VISIBLE);
+                llAddBook.setVisibility(View.VISIBLE);
             } else if (mCurrentUser.getUserType().equals("学生")) {
                 llMainDrawerVideo.setVisibility(View.VISIBLE);
                 llMainDrawerNews.setVisibility(View.GONE);
                 llMainDrawerFeedback.setVisibility(View.GONE);
+                llAddBook.setVisibility(View.GONE);
             }
         }
     }
@@ -187,7 +189,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.llMainDrawerSetting:
                 //设置页
-                //  toActivity(SettingActivity.class);
+                Intent intent = new Intent(this, AddBookActivity.class);
+                startActivityForResult(intent, 10);
                 closeDrawer();
                 break;
             case R.id.llMainDrawerLogin:

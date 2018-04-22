@@ -126,5 +126,6 @@
     <item name="line_green" type="drawable">#ff3bbd79</item>
 
     <color name="like">#f50057</color>
+    <color name="blue">#3F51B5</color>
 
 </resources>

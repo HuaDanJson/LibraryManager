@@ -8,7 +8,6 @@ import com.example.jason.examination.utils.SharePreferenceUtil;
 import com.example.jason.examination.utils.ToastHelper;
 import com.example.jason.examination.utils.db.DBBookListUtils;
 
-
 import java.util.ArrayList;
 
 
